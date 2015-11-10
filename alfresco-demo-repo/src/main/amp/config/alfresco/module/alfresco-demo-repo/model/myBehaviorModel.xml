@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="myb:behaviorModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+    <!-- Optional meta-data about the model -->
+    <description>Document Model for Behavior-Demo-Repo Extension X</description>
+    <author>Nick Ferguson</author>
+    <version>1.0</version>
+
+    <imports>
+        <!-- Import Alfresco Dictionary Definitions -->
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+        <!-- Import Alfresco Content Domain Model Definitions -->
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+        <!-- Import Alfresco System Model Definitions -->
+        <import uri="http://www.alfresco.org/model/system/1.0" prefix="sys"/>
+    </imports>
+
+    <!-- Custom namespace for your domain -->
+    <namespaces>
+        <namespace uri="http://www.mycompany.com/model/behavior/1.0" prefix="myb"/>
+    </namespaces>
+
+    <!-- ===============================================================================================================
+        Constraints, Types, and Aspects go here...
+        -->
+    <types>    
+	    <type name="myb:expenseFolder">
+	    	<title>MyCo Expense Folder</title>
+	    	<parent>cm:folder</parent>
+	    	<properties>
+		    	<property name="myb:expenseSum">
+		    		<type>d:double</type>
+		    		<mandatory>true</mandatory>
+		   		</property>
+		   	</properties>    	
+    	</type>
+    </types>
+</model>
