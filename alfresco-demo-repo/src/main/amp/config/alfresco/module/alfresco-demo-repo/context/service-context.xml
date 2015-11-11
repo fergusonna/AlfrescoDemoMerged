@@ -77,7 +77,7 @@
         </property>
         <property name="labels">
             <list>
-                <value>alfresco.module.workflow-demo-repo.messages.myWorkflow</value>
+                <value>alfresco.module.${project.artifactId}.messages.myWorkflow</value>
             </list>
         </property>
     </bean>

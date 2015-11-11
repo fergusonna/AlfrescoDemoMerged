@@ -45,5 +45,8 @@ Temporary Items
 # Misc
 *.project
 .settings/
-/target/
-/alf_data_dev/
+target/
+alf_data_dev/
+.metadata/
+.classpath
+.recommenders/
