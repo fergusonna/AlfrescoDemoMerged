@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.alfresco.repo.node.NodeServicePolicies.OnCreateChildAssociationPolicy;
-import org.alfresco.repo.node.NodeServicePolicies.OnDeleteChildAssociationPolicy;
+import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.Behaviour;
 import org.alfresco.repo.policy.JavaBehaviour;
 import org.alfresco.repo.policy.PolicyComponent;
@@ -20,7 +19,7 @@ import org.alfresco.model.ContentModel;
 import com.nick.model.MyCoBehaviorModel;
 import com.nick.model.MyCoModel;
 
-public class SumExpense implements OnCreateChildAssociationPolicy, OnDeleteChildAssociationPolicy{
+public class SumExpense implements NodeServicePolicies.OnCreateChildAssociationPolicy, NodeServicePolicies.OnDeleteChildAssociationPolicy{
 
 	
 	private NodeService nodeService;
@@ -41,15 +40,16 @@ public class SumExpense implements OnCreateChildAssociationPolicy, OnDeleteChild
 		this.onCreateChildAssociation = new JavaBehaviour(this, "onCreateChildAssociation" , Behaviour.NotificationFrequency.TRANSACTION_COMMIT);
 		this.onDeleteChildAssociation = new JavaBehaviour(this, "onDeleteChildAssociation" , Behaviour.NotificationFrequency.TRANSACTION_COMMIT);
 		
-		//Bind behaviours to node policies
+		
 		this.policyComponent.bindAssociationBehaviour(QName.createQName(NamespaceService.ALFRESCO_URI, "onCreateChildAssociation"),
-				ContentModel.TYPE_CONTENT, 
+				ContentModel.TYPE_FOLDER,
 				this.onCreateChildAssociation);
 		this.policyComponent.bindAssociationBehaviour(QName.createQName(NamespaceService.ALFRESCO_URI, "onDeleteChildAssociation"),
-				ContentModel.TYPE_CONTENT,
+				ContentModel.TYPE_FOLDER,
 				this.onDeleteChildAssociation);
 	}
 	
+
 	@Override
 	public void onCreateChildAssociation(ChildAssociationRef childAssocRef, boolean arg1) {
 		if (logger.isDebugEnabled()){
@@ -80,7 +80,7 @@ public class SumExpense implements OnCreateChildAssociationPolicy, OnDeleteChild
 		QName totalAmount = QName.createQName(MyCoModel.NAMESPACE_MYCO_CONTENT_MODEL, MyCoModel.PROP_MY_TOTAL_AMOUNT);
 		QName expenseSum = QName.createQName(MyCoBehaviorModel.NAMESPACE_MYCO_BEHAVIOR_MODEL, MyCoBehaviorModel.PROP_MYB_EXPENSE_SUM);
 		
-		if (parentType.isMatch(parentType)){
+		if (parentType.isMatch(expenseFolder)){
 			if (logger.isDebugEnabled()){
 				logger.debug("Parent is an expense folder");
 			}
